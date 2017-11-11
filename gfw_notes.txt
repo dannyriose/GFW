@@ -1,0 +1,6 @@
+(13072017)
+
+--NOTE:
+
+gAllocator: Object memory allocation on the heap
+gConstructor: Calling constructor from pre allocated memory from array

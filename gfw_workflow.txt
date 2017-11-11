@@ -1,0 +1,7 @@
+(13072017)
+---modify gAllocator:
+remove construct,destruct functions
+more compeling name for ptrAlloc, and ptrDealloc
+---create gConstructor
+---modify gAlignedList with gConstructor
+---modify gAlignedPtrList with gPtrAllocator
