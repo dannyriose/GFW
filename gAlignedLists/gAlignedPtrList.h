@@ -348,6 +348,7 @@ public:
 
     ginline bool setDestroyData(bool bSet){
         this->d->allocator->setDeleteData(bSet);
+        return true;
     }
 
     ginline bool destroyData() const{return this->d->allocator->deleteData();}

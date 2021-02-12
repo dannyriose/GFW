@@ -31,15 +31,18 @@ public:
         //allocator here should have
         clear();
         m_pointer = allocator->create();
+        return m_pointer != 0;
 
     }
     bool create(const T &other){
         clear();
         m_pointer = allocator->create(other);
+        return m_pointer!=0;
     }
     void clear(){
 
             allocator->remove(m_pointer);
+
 
     }
 
