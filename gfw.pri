@@ -31,10 +31,17 @@ include($$S_GFW_DIR/gAlignedLists/gAlignedLists.pri)
 include($$S_GFW_DIR/gUrl/gUrl.pri)
 include($$S_GFW_DIR/gTable/gTables.pri)
 unix:include($$S_GFW_DIR/gCom/gCom.pri)
+include($$S_GFW_DIR/gObjectEngineModel/gEngine/gEngine.pri)
+include($$S_GFW_DIR/gObjectEngineModel/gObject/gObject.pri)
+include($$S_GFW_DIR/gObjectEngineModel/gProperty/gProperty.pri)
+include($$S_GFW_DIR/gObjectEngineModel/gScriptInterface/gScriptInterface.pri)
+include($$S_GFW_DIR/gObjectEngineModel/gScriptInstance/gScriptInstance.pri)
+include($$S_GFW_DIR/gObjectEngineModel/gSharedEngineModel/gSharedEngineModel.pri)
+include($$S_GFW_DIR/gObjectEngineModel/gEngineModelList/gEngineModelList.pri)
 HEADERS+=$$S_GFW_DIR/gfw_global.h \
          $$S_GFW_DIR/gfw.h \
-    gfw_export.h
+         $$S_GFW_DIR/gfw_export.h
 
 OTHER_FILES += \
-    gfw_workflow.txt \
-    gfw_notes.txt
+    $$S_GFW_DIR/gfw_workflow.txt \
+    $$S_GFW_DIR/gfw_notes.txt

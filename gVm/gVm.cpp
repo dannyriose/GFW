@@ -623,8 +623,8 @@ gVmInstance *gVm::load(const gString &gVMProgramFile,bool bCreateMemory,
         if(!f)return NULL; //Ocurrio un error
 
         fread(&ph,sizeof(EPROGHEADER),1,f);//Leemos la cabecera
-        if(ph.dwMagic!=*dwMagic)return false;
-        if((ph.wVersion !=0x1000)&& ph.wVersion!=0x1100)return false;
+        if(ph.dwMagic!=*dwMagic)return NULL;
+        if((ph.wVersion !=0x1000)&& ph.wVersion!=0x1100)return NULL;
 
         fread(&pi,sizeof(EPROGINFO),1,f);//Leemos la informacion
 

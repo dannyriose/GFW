@@ -1,7 +1,8 @@
 win32:S_GFW_DIR=D:/dprograms/clibs #define the working directory of the G-Framework
-unix:S_GFW_DIR=/var/run/media/daniel/DATA/dprograms/clibs
-unix:S_CURL_DIR=/var/run/media/daniel/DATA/Dev/extern/curl-pri
+unix:S_GFW_DIR=/media/danny/DATA/dprograms/clibs/
+unix:S_CURL_DIR=/media/danny/DATA/Dev/extern/curl-pri
 
+CONFIG+=GFW_STATICLIB
 TEMPLATE=lib
 GFW_STATICLIB{
     CONFIG+=staticlib

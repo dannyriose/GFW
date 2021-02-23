@@ -294,7 +294,7 @@ void *CLinkedList::GetElementData(LPLINKEDLIST mlist,dword id)
 	if(!mlist)return NULL;
 	if(!mlist->firstelement)return NULL;
 
-	if(!SetElement(mlist,id))return false;//Nos posicionamos en el sitio especifico
+    if(!SetElement(mlist,id))return NULL;//Nos posicionamos en el sitio especifico
 
         return mlist->list->data.pData;//Regresamos el dato
 };
