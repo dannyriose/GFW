@@ -1,5 +1,7 @@
+#Define here where the GFW files are
 win32:S_GFW_DIR=D:/dprograms/clibs #define the working directory of the G-Framework
 unix:S_GFW_DIR=/media/danny/DATA/dprograms/clibs/
+#Define where curl lib is
 unix:S_CURL_DIR=/media/danny/DATA/Dev/extern/curl-pri
 
 CONFIG+=GFW_STATICLIB
