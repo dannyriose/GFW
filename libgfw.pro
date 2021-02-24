@@ -42,3 +42,6 @@ win32:QMAKE_LFLAGS+=/INCREMENTAL:NO
 unix:QMAKE_CXXFLAGS+= -Werror=return-type
 include(gfw.pri)
 
+DISTFILES += \
+    README.md
+
