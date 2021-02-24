@@ -1,5 +1,6 @@
  
 HEADERS += \
+    $$PWD/gTimerList.h \
     $$S_GFW_DIR/gTimers/gSystemTimer.h \
     $$S_GFW_DIR/gTimers/gTimersCommon.h \
     $$S_GFW_DIR/gTimers/gTimer.h \
