@@ -30,7 +30,7 @@ namespace gfw{
         }
         //! copy function
         virtual void copy(const gSharedObject *other){
-            gImagePrivate *o=static_cast<gImagePrivate *>(other);
+            const gImagePrivate *o=static_cast<const gImagePrivate *>(other);
             data.clear();
             colorTable.clear();
             data=o->data;
