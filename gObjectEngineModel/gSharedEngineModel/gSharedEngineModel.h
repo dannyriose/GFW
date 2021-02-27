@@ -22,7 +22,27 @@ public:
     {
 
     }
-    virtual ~gSharedEngineModel()
+    //!
+    //! \brief Initializates object with custom values
+    //! \param _type The type of object
+    //! \param _sid The String ID
+    //! \param _iid The integer ID
+    //!
+    gSharedEngineModel(gs32 _type, const gString &_sid, gs32 _iid):m_type(_type),
+        m_sid(_sid),
+        m_iid(_iid)
+    {
+
+    }
+    gSharedEngineModel(const gSharedEngineModel &other):
+        m_type(other.m_type),
+        m_sid(other.m_sid),
+        m_iid(other.m_iid)
+    {
+
+    }
+
+    ~gSharedEngineModel()
     {
 
     }
@@ -61,7 +81,7 @@ public:
     //! \brief setStingID: Sets the String ID of the object.
     //! \param _sid: Reference to a string
     //!
-    void setStingID(const gString &_sid)
+    void setStringID(const gString &_sid)
     {
         m_sid = _sid;
     }
@@ -69,7 +89,7 @@ public:
     //! \brief setIID: Sets the integer id of the object
     //! \param _iid: Integer data with ID value.
     //!
-    void setIID(gs32 _iid)
+    void setIntegerID(gs32 _iid)
     {
         m_iid = _iid;
     }
@@ -93,7 +113,7 @@ public:
     //! \brief iID: Gets the object integer ID
     //! \return Value of ID
     //!
-    gs32 iID() const
+    gs32 integerID() const
     {
         return m_iid;
     }

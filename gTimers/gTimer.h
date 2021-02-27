@@ -2,6 +2,7 @@
 #define GTIMER_H
 
 #include <gString/gString.h>
+#include <gObjectEngineModel/gSharedEngineModel/gSharedEngineModel.h>
 #include "gTimersCommon.h"
 namespace gfw{
     //! Type of timers
@@ -12,14 +13,10 @@ namespace gfw{
     };
 
     //! Base class for timers
-    class SHARED_GFW gTimer{
+    class SHARED_GFW gTimer: public gSharedEngineModel
+    {
     protected:
-        //! String id
-        gString m_sid;
-        //! Integer id
-        gs32 m_iid;
-        //! Type
-        GTIMER_TYPE m_type;
+        GTIMER_TYPE m_timertype;
         //! Call backfunction if specified
         ITimerCallBack m_callback;
         //! Callback object
@@ -34,9 +31,8 @@ namespace gfw{
         bool m_periodic;
 
     public:
-        gTimer():
-            m_iid(-1),
-            m_type(GTIMER_TYPE_NOTSET),
+        gTimer():gSharedEngineModel(GEM_TIMER),
+            m_timertype(GTIMER_TYPE_NOTSET),
             m_callback(0),
             m_callbackObject(0),
             m_interval(0),
@@ -46,9 +42,8 @@ namespace gfw{
         {
 
         }
-        gTimer(const gTimer &other):m_sid(other.m_sid),
-            m_iid(other.m_iid),
-            m_type(other.m_type),
+        gTimer(const gTimer &other):gSharedEngineModel(other),
+            m_timertype(other.m_timertype),
             m_callback(other.m_callback),
             m_callbackObject(other.m_callbackObject),
             m_interval(other.m_interval),
@@ -57,9 +52,9 @@ namespace gfw{
             m_periodic(other.m_periodic){
 
         }
-        gTimer(const gString &sid,gs32 iid,GTIMER_TYPE type):m_sid(sid),
-            m_iid(iid),
-            m_type(type),
+        gTimer(const gString &_sid,gs32 _iid,GTIMER_TYPE _timertype):
+            gSharedEngineModel(GEM_TIMER,_sid,_iid),
+            m_timertype(_timertype),
             m_callback(0),
             m_callbackObject(0),
             m_interval(0),
@@ -69,7 +64,7 @@ namespace gfw{
 
         }
         gTimer &operator = (const gTimer &other);
-        virtual ~gTimer(){
+       ~gTimer(){
 
         }
         virtual void timeOut(){
@@ -80,10 +75,8 @@ namespace gfw{
                 m_callbackObject->timeOut();
             }
         }
-        inline void setTimerStringId(const gString &id){m_sid=id;}
-        inline void setTimerIntegerId(gs32 id){m_iid=id;}
-        inline const gString &getTimerStringId() const{return m_sid;}
-        inline const gs32 &getTimerIntegerId() const{return m_iid;}
+
+
         inline void setInterval(gu32 msInterval){
             m_interval=msInterval;
         }

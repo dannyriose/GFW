@@ -35,10 +35,11 @@ gu64 gTimer::getRealTimeus() const{
 
 
 gTimer &gTimer::operator =(const gTimer &other){
-    if(m_type!=other.m_type)
+    if(m_timertype!=other.m_timertype)
         return *this;
-    m_sid=other.m_sid;
-    m_iid=other.m_iid;
+    setType(other.type());
+    setIntegerID(other.integerID());
+    setStringID(other.stringID());
     m_callback=other.m_callback;
     m_callbackObject=other.m_callbackObject;
     m_interval=other.m_interval;

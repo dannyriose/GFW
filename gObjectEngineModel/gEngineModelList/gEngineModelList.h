@@ -79,12 +79,21 @@ public:
         T *v;
         for(gu32 i = 0; i<this->d->m_size;i++){
             v = this->value(i);
-            if(v->iID() == _iid){
+            if(v->integerID() == _iid){
                 if(indexOut)*indexOut = i;
                 return v;
             }
         }
         return 0;
+    }
+
+    ginline virtual void append(T *ref, bool _copy = false)
+    {
+        gAlignedPtrList<T,gEngineModelListAllocator<T> >::append(ref,_copy);
+        if(_copy == false)
+        {
+            ref->grab();
+        }
     }
 
 };

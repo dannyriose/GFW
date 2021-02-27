@@ -66,7 +66,10 @@ struct gAlignedPtrListPrivate: public gSharedObject{
                 T *val;
                 for(gu32 i = _size; i< m_size;i++){
                     val = m_data[i];
-                    allocator->remove(val);
+                    if(val)
+                    {
+                        allocator->remove(val);
+                    }
                 }
                 m_size = _size;
             }
@@ -98,9 +101,9 @@ struct gAlignedPtrListPrivate: public gSharedObject{
     }
     //! Removes a single element from the list. This process is faster than on gAlignedList because
     //! we only swap pointers without having the need to call destructors and constructors.
-    ginline void remove(gu32 index){
+    ginline bool remove(gu32 index){
         if(m_size == 0)
-            return;
+            return false;
         T *val;
         gu32 msize = m_size - 1;
         val = m_data[index];
@@ -113,14 +116,15 @@ struct gAlignedPtrListPrivate: public gSharedObject{
             allocator->remove(val);
         }
         m_size = msize;
+        return true;
     }
     //! Faster version of remove. It only swaps the last element with current avoiding the need
     //! to move all other list elements.
-    ginline void fastRemove(gu32 index)
+    ginline bool fastRemove(gu32 index)
     {
         // list is empty then do nothing
         if(m_size == 0)
-            return;
+            return false;
         //get the element to be removed
         T *val = m_data[index];
         //decrease the size of the list by 1
@@ -133,7 +137,7 @@ struct gAlignedPtrListPrivate: public gSharedObject{
         //if it is removing the last element of the list then do nothing
         if(index == m_size)
         {
-           return;
+           return true;
         }
         //swap the actual last element of the list with
         //the element position being removed
@@ -141,6 +145,7 @@ struct gAlignedPtrListPrivate: public gSharedObject{
 
         m_data[index] = last;
 
+        return true;
 
     }
     ginline void copy(const gSharedObject *obj){
@@ -290,35 +295,39 @@ public:
     ginline virtual bool contains(gs32 id,gu32 *indexOut = 0) const{
        return search(id,indexOut) != 0;
     }
-    ginline virtual void remove(gu32 index){
-        this->d->remove(index);
+    ginline virtual bool remove(gu32 index){
+        return this->d->remove(index);
     }
-    ginline virtual void remove(T *ref){
+    ginline virtual bool remove(T *ref){
         gu32 index;
         if(contains(ref,&index)){
-            this->d->remove(index);
+            return this->d->remove(index);
         }
+        return false;
     }
-    ginline virtual void remove(const gString &id){
+    ginline virtual bool remove(const gString &id){
         gu32 index;
         if(contains(id,&index)){
-            this->d->remove(index);
+            return this->d->remove(index);
         }
+        return false;
     }
-    ginline virtual void fastRemove(gu32 index){
-        this->d->fastRemove(index);
+    ginline virtual bool fastRemove(gu32 index){
+        return this->d->fastRemove(index);
     }
-    ginline virtual void fastRemove(T *ref){
+    ginline virtual bool fastRemove(T *ref){
         gu32 index;
         if(contains(ref,&index)){
-            this->d->fastRemove(index);
+            return this->d->fastRemove(index);
         }
+        return false;
     }
-    ginline virtual void fastRemove(const gString &id){
+    ginline virtual bool fastRemove(const gString &id){
         gu32 index;
         if(contains(id,&index)){
-            this->d->fastRemove(index);
+            return this->d->fastRemove(index);
         }
+        return false;
     }
 
     ginline const gu32 &size() const{

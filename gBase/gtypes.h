@@ -87,7 +87,9 @@ namespace gfw
                                                case G_SEARCH_NOTEQUAL:ret=term1!=term2;break;\
                                                default:ret=false;break;}
 //! Macro to help getting the private members
-#define GFW_PRIVATE_CAST(var,member,type) type *var=(type *)member
+//!
+#define GFW_PRIVATE_CAST(var,member,type) type *var=static_cast<type *>(member)
+    // #define GFW_PRIVATE_CAST(var,member,type) type *var=(type *)member
 #define GFW_PRIVATE_CREATE(var,member,type) type *var=new type;member=var
 
     //! Prototype callback function used as 'cleaning' function for elements contained in gArray

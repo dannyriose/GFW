@@ -13,7 +13,8 @@ namespace gfw
 //! It represents an object with properties. This is with the purpose of having an open
 //! programatic object model for any application.
 //!
-class SHARED_GFW gObject: public gSharedEngineModel
+class SHARED_GFW gObject: public gSharedEngineModel,
+        public gBaseShared
 {
 public:
     //!
@@ -34,7 +35,7 @@ public:
     //!
     gProperty *addProperty(const gString _sid,
                            const gVariant _data,
-                           const gString &name = gString(),
+                           const gString &_name = gString(),
                            gs32 _iid = -1);
     //!
     //! \brief Inserts a property to the property list. It increases the reference of it by calling
@@ -49,7 +50,7 @@ public:
     //! very much like doing _property = propertylist[_index]
     //! \return Pointer to the property or 0 if failed.
     //!
-    gProperty *property(gu32 index) const;
+    gProperty *property(gu32 _index) const;
     //!
     //! \brief Gets the property given the string ID of the property.
     //! \param _sid String ID of the property to be searched in.
@@ -197,7 +198,12 @@ public:
     //! If this parameter is NULL or 0, then it is ignored.
     //! \return Pointer to object found in the child list or 0 if failed.
     //!
-    gObject *child(gs32 _iid, gu32 *indexOut = 0);
+    gObject *child(gs32 _iid, gu32 *indexOut = 0) const;
+    //!
+    //! \brief Gets the total count of child objects.
+    //! \return Integer value with total count of child objects.
+    //!
+    gu32 childCount() const;
     //!
     //! \brief Removes a child object from this object.
     //! \param _obj Child object to be removed from list.
