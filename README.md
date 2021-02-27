@@ -1,5 +1,5 @@
-<p>The GFW or General Purpose c++ Framework is a simpre lighweight base utility for C++.
-It provides the basic functionality for any kind C++ project.</p>
+<p>The GFW or General Purpose C++ Framework, is a simpre lighweight base utility for C++.
+It provides the basic functionality for any kind of C++ project.</p>
 These include:
 
 <ul>

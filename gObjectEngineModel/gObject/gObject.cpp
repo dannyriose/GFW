@@ -9,12 +9,11 @@ gObject::gObject(gObject *_parent,gs32 _type):
 {
     gObjectPrivate *pd = new gObjectPrivate();
     d = pd;
-
-    pd->m_parent = _parent;
     if(_parent)
     {
-        _parent->grab();
+        _parent->addChild(this);
     }
+
 }
 gObject::~gObject()
 {
@@ -290,6 +289,14 @@ bool gObject::addChild(gObject *_obj)
     gObjectPrivate *o;
     const gString &_sid = _obj->stringID();
     gs32 _iid = _obj->integerID();
+
+    //Getting private member of new child object.
+    o = static_cast<gObjectPrivate *>(_obj->sharedObject());
+
+    if(o->m_parent == this) //We are already there
+    {
+        return false;
+    }
     if(pd->m_objects.contains(_obj))
     {
         return false;
@@ -308,8 +315,11 @@ bool gObject::addChild(gObject *_obj)
             return false;
         }
     }
-    //Getting private member of new child object.
-    o = static_cast<gObjectPrivate *>(_obj->sharedObject());
+
+    if(o->m_parent)
+    {   //remove reference of old parent
+        o->m_parent->removeChild(this);
+    }
     //We set the parent
     o->m_parent = this;
     //Increase reference count
@@ -344,33 +354,60 @@ gu32 gObject::childCount() const
 bool gObject::removeChild(gObject *_obj)
 {
     G_OBJECTPD;
+    gObjectPrivate *o = static_cast<gObjectPrivate *>(_obj->sharedObject());
+    if(o->m_parent == this)
+    {
+        drop();
+    }
     return pd->m_objects.remove(_obj);
 }
 bool gObject::removeChild(gu32 _index)
 {
-    G_OBJECTPD;
+     G_OBJECTPD;
+    gObject *_obj = pd->m_objects.value(_index);
+    gObjectPrivate *o = static_cast<gObjectPrivate *>(_obj->sharedObject());
+    if(o->m_parent == this)
+    {
+        drop();
+    }
     return pd->m_objects.remove(_index);
 }
 bool gObject::removeChild(const gString &_sid)
 {
     G_OBJECTPD;
-    return pd->m_objects.remove(_sid);
+    gu32 indexOut;
+    gObject *_obj = pd->m_objects.search(_sid,&indexOut);
+    if(!_obj)
+    {
+        return false;
+    }
+    gObjectPrivate *o = static_cast<gObjectPrivate *>(_obj->sharedObject());
+    if(o->m_parent == this)
+    {
+        drop();
+    }
+    return pd->m_objects.remove(indexOut);
 }
 bool gObject::removeChildByIID(gs32 _iid)
 {
     gu32 indexOut;
     G_OBJECTPD;
-
-    if(pd->m_objects.contains(_iid,&indexOut))
+    gObject *_obj = pd->m_objects.search(_iid,&indexOut);
+    if(!_obj)
     {
-        return pd->m_objects.remove(indexOut);
+        return false;
     }
-    return false;
+    gObjectPrivate *o = static_cast<gObjectPrivate *>(_obj->sharedObject());
+    if(o->m_parent == this)
+    {
+        drop();
+    }
+    return pd->m_objects.remove(indexOut);
 }
 /********************Setting and getting the parent object*****/
 bool gObject::setParent(gObject *_parent)
 {
-    return _parent->addChild(this);
+     return _parent->addChild(this);
 }
 gObject *gObject::parent() const
 {

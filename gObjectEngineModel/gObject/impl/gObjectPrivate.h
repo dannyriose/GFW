@@ -2,7 +2,7 @@
 #define GOBJECTPRIVATE_H
 
 #include <gObjectEngineModel/gObject/gObject.h>
-#include <gObjectEngineModel/gEngineModelList/gEngineModelList.h>
+#include <gObjectEngineModel/gObject/gObjectList.h>
 #include <gObjectEngineModel/gProperty/gProperty.h>
 #include <gTimers/gVirtualTimer.h>
 #include <gTimers/gSystemTimer.h>
@@ -31,7 +31,7 @@ public:
 public:
    gEngineModelList<gProperty> m_properties;
    gTimerList m_timers;
-   gEngineModelList<gObject> m_objects;
+   gObjectList m_objects;
    gObject *m_parent;
 };
 
