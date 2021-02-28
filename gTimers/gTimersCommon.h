@@ -20,8 +20,12 @@ namespace gfw{
 
         }
         virtual void timeOut() =0;
-        gTimer *getTimer(){return m_caller;}
-        void setTimer(gTimer *timer){
+        gTimer *getTimer()
+        {
+            return m_caller;
+        }
+        void setTimer(gTimer *timer)
+        {
             m_caller=timer;
         }
 

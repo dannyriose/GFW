@@ -137,6 +137,10 @@ namespace gfw{
 
         bool isRunning() const{return m_running;}
 
+        gs32 timerType() const
+        {
+            return m_timertype;
+        }
 
     };
 }

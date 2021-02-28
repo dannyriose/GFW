@@ -3,6 +3,7 @@
 #include <gfw_global.h>
 #include <gfw_export.h>
 #include <gObjectEngineModel/gProperty/gProperty.h>
+#include <gVariant/gVariantList.h>
 #include <gTimers/gTimer.h>
 
 
@@ -241,6 +242,19 @@ public:
     //! \return Pointer of parent object.
     //!
     gObject *parent() const;
+    //!
+    //! \brief Start of object code. Subclass this object and suit it to your needs.
+    //! This is called first before entering any special loop.
+    //! \param _params Variable list of params. User specific.
+    //!
+    virtual void init (const gVariantList &_params);
+    //!
+    //! \brief Update call is meant to be used inside a loop. Ideal for inner changes  or constant working
+    //! \param params Variable list of params. User specific
+    //!
+    virtual void update(const gVariantList &params);
+    virtual void event(const gVariantList &params);
+    virtual void onTimer(gTimer *_caller);
 
 
 

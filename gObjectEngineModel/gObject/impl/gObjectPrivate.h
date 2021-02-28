@@ -7,12 +7,15 @@
 #include <gTimers/gVirtualTimer.h>
 #include <gTimers/gSystemTimer.h>
 #include <gTimers/gTimerList.h>
+#include "gObjectTimerCallback.h"
 namespace gfw
 {
 class gObjectPrivate: public gSharedObject
 {
 public:
-    gObjectPrivate()
+    gObjectPrivate(gObject *_obj = 0):
+        m_parent(0),
+        m_timercallback(_obj)
     {
 
     }
@@ -33,6 +36,7 @@ public:
    gTimerList m_timers;
    gObjectList m_objects;
    gObject *m_parent;
+   gObjectTimerCallback m_timercallback;
 };
 
 G_SHAREDOBJECT_FACTORY(gObjectPrivateFactory,gObjectPrivate);

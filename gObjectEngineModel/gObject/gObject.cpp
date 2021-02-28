@@ -7,7 +7,7 @@ gObject::gObject(gObject *_parent,gs32 _type):
     gSharedEngineModel(_type),
     gBaseShared(new gObjectPrivateFactory)
 {
-    gObjectPrivate *pd = new gObjectPrivate();
+    gObjectPrivate *pd = new gObjectPrivate(this);
     d = pd;
     if(_parent)
     {
@@ -318,7 +318,7 @@ bool gObject::addChild(gObject *_obj)
 
     if(o->m_parent)
     {   //remove reference of old parent
-        o->m_parent->removeChild(this);
+        o->m_parent->drop();
     }
     //We set the parent
     o->m_parent = this;
@@ -413,4 +413,52 @@ gObject *gObject::parent() const
 {
     G_OBJECTPD;
     return pd->m_parent;
+}
+/*******************Setting User Specific Functions **/
+void gObject::init(const gVariantList &_params)
+{
+    gObject *o;
+
+    G_OBJECTPD;
+    for(gu32 i = 0; i < pd->m_objects.size(); i++)
+    {
+        o = pd->m_objects.value(i);
+        o->init(_params);
+    }
+
+}
+void gObject::update(const gVariantList &_params)
+{
+    gObject *o;
+    gTimer *t;
+    G_OBJECTPD;
+    for(gu32 i = 0; i < pd->m_objects.size(); i++)
+    {
+        o = pd->m_objects.value(i);
+        o->update(_params);
+    }
+    for(gu32 i = 0; i < pd->m_timers.size(); i++)
+    {
+        t = pd->m_timers.value(i);
+        if(t->timerType() == GTIMER_TYPE_VIRTUAL)
+        {
+            t->poll();
+        }
+
+    }
+}
+void gObject::event(const gVariantList &_params)
+{
+    gObject *o;
+
+    G_OBJECTPD;
+    for(gu32 i = 0; i < pd->m_objects.size(); i++)
+    {
+        o = pd->m_objects.value(i);
+        o->event(_params);
+    }
+}
+void gObject::onTimer(gTimer *_caller)
+{
+    GFW_UNUSED(_caller);
 }
