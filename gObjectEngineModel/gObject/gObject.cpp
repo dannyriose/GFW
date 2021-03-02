@@ -188,6 +188,7 @@ gTimer *gObject::addTimer(const gString &_sid, gu32 _interval, gs32 _iid, gs32 _
     t->setInterval(_interval);
     t->setStringID(_sid);
     t->setIntegerID(_iid);
+    t->setCallBackObject(&pd->m_timercallback);
     pd->m_timers.append(t);
 
     return t;
@@ -461,4 +462,27 @@ void gObject::event(const gVariantList &_params)
 void gObject::onTimer(gTimer *_caller)
 {
     GFW_UNUSED(_caller);
+}
+
+/**Remake of some function than may not work as because d is always a pointer alive**/
+
+
+bool gObject::isEmpty() const
+{
+    G_OBJECTPD;
+    bool thereproperties = pd->m_properties.isEmpty();
+    bool thereobjects = pd->m_objects.isEmpty();
+    bool theretimers = pd->m_timers.isEmpty();
+    bool final =(thereobjects) ||
+                (thereproperties) ||
+                (theretimers);
+    return final;
+}
+
+void gObject::clear()
+{
+    G_OBJECTPD;
+    pd->m_objects.clear();
+    pd->m_timers.clear();
+    pd->m_properties.clear();
 }

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <gBase/gAllocator.h>
 #include <gMath/gAlgorithm.h>
+#include <gBase/gPrivateFactory.h>
 #define GALIGNEDLIST_PREALLOC 32
 namespace gfw{
 

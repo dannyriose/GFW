@@ -6,6 +6,7 @@
 #include <gString/gString.h>
 #include "gBase/gAllocator.h"
 #include "gMath/gAlgorithm.h"
+#include <gBase/gPrivateFactory.h>
 #define GALIGNEDPTRLIST_PREALLOC 32
 namespace gfw{
 

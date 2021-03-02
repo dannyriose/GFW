@@ -52,7 +52,7 @@ public:
     }
     //! @todo Set clean up routine here and remove function clear as virtual functions on destructors are not reliable
     virtual ~gObjectSharingModel(){
-        clear();
+        clearPrivate();
         if(d_factory)
              d_factory->deleteme();
     }

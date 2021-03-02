@@ -256,6 +256,9 @@ public:
     virtual void event(const gVariantList &params);
     virtual void onTimer(gTimer *_caller);
 
+    virtual bool isEmpty() const;
+    virtual void clear();
+
 
 
 };

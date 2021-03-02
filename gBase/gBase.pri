@@ -1,6 +1,7 @@
 
 
 HEADERS += \
+    $$PWD/gSharedObjectFactory.h \
     $$S_GFW_DIR/gBase/gtypes.h \
     $$S_GFW_DIR/gBase/gassert.h \
     $$S_GFW_DIR/gBase/gSharedObject.h \

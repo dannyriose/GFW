@@ -2,7 +2,7 @@
 #define GSHAREDOBJECT_H
 #include "gtypes.h"
 #include "gTemplates.h"
-#include "gPrivateFactory.h"
+#include "gSharedObjectFactory.h"
 #include "gassert.h"
 #include "gfw_export.h"
 namespace gfw{
